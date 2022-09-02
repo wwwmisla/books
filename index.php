@@ -17,6 +17,7 @@
   <link href="css/style.css" rel="stylesheet" type="text/css" />
   <!-- Js -->
   <script src="js/criar-livro.js" defer></script>
+  <script src="js/updateMark.js" defer></script>
 
 </head>
 
@@ -91,7 +92,7 @@
       <!-- SECTION -->
       <section class="d-flex">
                 <div class="livro-imagem">
-                    <img src="img/livro.webp" alt="Imagem do livro">
+                    <img src="img/book.webp" alt="Imagem do livro">
                 </div>
                 <div class="livro-contexto">
                     <p class="livro-dados">
