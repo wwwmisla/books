@@ -23,33 +23,37 @@
 <body>
 
   <!-- HEADER -->
-  <header>
-    <aside>
-      <form action="#">
-        <div class="form-group">
-          <label for="txt_email">e-mail</label>
-          <input type="email" name="txt_email" id="txt_email" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="txt_senha">senha</label>
-          <input type="password" name="txt_senha" id="txt_senha" class="form-control">
-        </div>
-        <a href="#">Esqueci a senha</a>
-        <div>
-          <input type="submit" value="Login" class="btn btn-primary">
-          <a href="#" class="btn btn-primary">Cadastre-se</a>
-        </div>
-      </form>
-    </aside>
-    <h1>
-      <?="Books"?>
-    </h1>
-    <h2>
-      <?php 
-      echo "Info 4M - A turma dos mais apáticos :) ";
-      ?>
-    </h2>
-  </header>
+  <header class="p-relative">
+        <aside class="p-absolute">
+            <form action="">
+                <div class="form-group">
+                    <label for="txt_email">e-mail</label>
+                    <input type="email" name="txt_email"
+                        id="txt_email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="txt_senha">Senha</label>
+                    <input type="password" name="txt_senha"
+                        id="txt_senha" class="form-control">
+                </div>
+                <a href="#">Esqueci a senha</a>
+                <div class="form-group">
+                    <input type="button" value="Login"
+                        class="btn btn-primary">
+                    <input type="button" value="Cadastre-se"
+                        class="btn btn-primary">
+                </div>
+            </form>
+        </aside>
+        <h1>
+            <?= "Books" ?>
+        </h1>
+        <h2>
+            <?php 
+            echo "Info 4M - A turma dos mais apáticos :)";
+            ?>
+        </h2>
+    </header>
   <!-- HEADER -->
 
   <!-- MAIN -->
@@ -57,106 +61,84 @@
 
     <!-- FORM -->
     <form action="#" class="form-inline">
-      <div class="form-group">
-        <input type="text" name="txt_livro" id="txt_livro" class="form-control">
-        <input type="button" value="Salvar" class="btn btn-primary" 
-          onclick="criarHTML('txt_livro')">
-      </div>
-    </form>
+            <div class="form-group">
+                <input type="text" name="txt_livro"
+                    class="form-control" id="txt_livro">
+                <input type="button" value="Salvar"
+                    class="btn btn-primary" id="btn_salvar">
+            </div>
+        </form>
     <!-- FORM -->
 
-    <!-- SECTION -->
-    <section id="sectionLivros">
-      
-      <?php
-      require_once "model/Conexao.php";
+    <div id="livros">
+            <?php
+            require_once "model/Conexao.php";
 
-      $sql = "select * from book;";
+            $sql = "select * from book;";
 
-      if(!Conexao::execWithReturn($sql)){
-        echo Conexao::getErro();
-        exit(1);
-      } 
+            if(!Conexao::execWithReturn($sql)){
+                echo Conexao::getErro();
+                exit(1);
+            }
+            //print_r(Conexao::getData());
+            $dados = Conexao::getData();
+            //print_r($dados);
+            //foreach($dados as $livro){
+            foreach($dados as $livro):
+            
+            ?>
 
-        //print_r(Conexao::getData());
-        $dados = Conexao::getData();
-
-        //foreach($dados as $livro){
-        foreach($dados as $livro):
-  
-      ?>
-
-      <!-- ARTICLE -->
-      <article>
-        <!-- IMG -->
-        <div>
-          <img src="img/book.webp" alt="Imagem do livro">
-        </div>
-        <!-- IMG -->
-
-        <!-- DETALHES -->
-        <div class="detalhes">
-          <h3>
-            Livro: 
-            <span>
-              <?= $livro["nome"]; ?>
-            </span>
-          </h3>
-          <h3>
-            Páginas: 
-            <span>
-              <?= 
-              $livro["paginas"];
-              ?>
-            </span>
-          </h3>
-          <h3>
-            Autor/a/as/es: 
-            <span>
-              <?=
-              $livro["autor"];
-              ?>
-            </span>
-          </h3>
-        </div>
-        <!-- DETALHES -->
-
-        <!-- MARCADORES -->
-        <div class="livro-marcos">
-          <!-- LIVRO -->
-          <div class="marcadores" onclick="updateMark(this)">
-            <span class="material-icons">
-              book
-            </span>
-            <span class="contador rounded-circle">
-              12
-            </span>
-          </div>
-          <!-- LIVRO -->
-
-          <!-- FAVORITO -->
-          <div class="marcadores" onclick="updateMark(this)">
-            <span class="material-icons">
-              favorite
-            </span>
-            <span class="contador rounded-circle">
-              15
-            </span>
-          </div>
-          <!-- FAVORITO -->
-        </div>
-        <!-- MARCADORES -->
-
-      </article>
-      <!-- ARTICLE -->
+      <!-- SECTION -->
+      <section class="d-flex">
+                <div class="livro-imagem">
+                    <img src="img/livro.webp" alt="Imagem do livro">
+                </div>
+                <div class="livro-contexto">
+                    <p class="livro-dados">
+                        Livro:
+                        <span id="livro-nome">
+                            <?= $livro["nome"]; ?>
+                        </span>
+                    </p>
+                    <p class="livro-dados">
+                        Páginas:
+                        <span id="livro-paginas">
+                            <?= $livro["paginas"]; ?>
+                        </span>
+                    </p>
+                    <p class="livro-dados">
+                        Autor/a/as/es:
+                        <span id="livro-autores">
+                            <?= $livro["autor"]; ?>
+                        </span>
+                    </p>
+                </div>
+                <div class="livro-marcos">
+                    <div onclick="updateMark(this)">
+                        <span class="material-icons">
+                            book
+                        </span>
+                        <span class="round">
+                            12
+                        </span>
+                    </div>
+                    <div onclick="updateMark(this)">
+                        <span class="material-icons">
+                            favorite
+                        </span>
+                        <span class="round">
+                            12
+                        </span>
+                    </div>
+                </div>
+            </section>
+      <!-- SECTION -->
 
       <?php
-      //} <!-- FIM DO FOREACH() -->
-      endforeach;
-    ?>
-    
-    </section>
-    <!-- SECTION -->
+            //}//foreach
+            endforeach;
+            ?>
+        </div>
 
   </main>
   <!-- MAIN -->
